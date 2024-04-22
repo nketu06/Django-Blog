@@ -33,8 +33,33 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="#">Login</a>
-              <a class="nav-item nav-link" href="#">Register</a>
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                  <style>
+                    /* CSS to style the button */
+                    .transparent-button {
+                        background-color: transparent;
+                        border: none;
+                        color: #cfd5d4; /* Set the text color */
+                        cursor: pointer;
+                        padding-top: 8px;
+                    }
+                    .transparent-button:hover {
+                            color: #fff; /* Change text color to white */
+                        }
+                </style>   
+                <div class="form-container"></div>             
+                  <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <!-- Apply the CSS class to the button -->
+                    <button type="submit" class="transparent-button">Logout</button>
+                  </form>
+                </div>
+
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
             </div>
           </div>
         </div>
